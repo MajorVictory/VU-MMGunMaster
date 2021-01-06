@@ -1,0 +1,11 @@
+{
+    "Name": "Major's Mod Gun Master",
+    "Description": "Gun Master with crazy-ass guns and explosions",
+    "Version": "1.0.0",
+    "Authors": [ "MajorVictory87" ],
+    "HasVeniceEXT": true,
+    "Dependencies": {
+        "veniceext": "^1.0.0"
+    },
+    "Tags": [ "majorsmod", "explosions", "gunmaster" ]
+}
