@@ -1,7 +1,7 @@
 
 -- enable debug messages in console
 function dprint(message)
-	if (true) then -- set to false to disable
+	if (false) then -- true = on, false = off
 		print(message)
 	end
 end

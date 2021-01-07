@@ -65,7 +65,7 @@ function MMWeapons:Write(mmResources)
 	if (mmResources:IsLoaded('magnum44') and mmResources:IsLoaded('smawmissile')) then
 		mmResources:SetLoaded('magnum44', false)
 		mmResources:SetLoaded('smawmissile', false)
-		
+
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('magnum44'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
@@ -344,10 +344,10 @@ function MMWeapons:Write(mmResources)
 		local bulletData = BulletEntityData(mmResources:GetInstance('augbullet'))
 		bulletData:MakeWritable()
 		bulletData.gravity = -9.8
-		bulletData.startDamage = 69420
+		bulletData.startDamage = 6969
 		bulletData.endDamage = 0
 		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 10
+		bulletData.damageFalloffEndDistance = 100
 		dprint('Changed Steyr Aug...')
 	end
 
@@ -402,7 +402,7 @@ function MMWeapons:Write(mmResources)
 
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('claymoreexp'))
 		expData:MakeWritable()
-		expData.blastDamage = 4200
+		expData.blastDamage = 2100
 		expData.blastRadius = 3
 		expData.blastImpulse = 1987
 		expData.shockwaveDamage = 10
@@ -420,7 +420,7 @@ function MMWeapons:Write(mmResources)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('lsat'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 1337)
+		self:OverrideGMMagSize(weaponData, 42)
 
 		local bulletData = GrenadeEntityData(mmResources:GetInstance('40mmlvg_grenade'))
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
@@ -428,11 +428,11 @@ function MMWeapons:Write(mmResources)
 
 		fireData.sound = SoundPatchAsset(ResourceManager:SearchForDataContainer('Sound/Weapons/Handheld/M320/Weapon_GL_M320'))
 
-		fireData.ammo.magazineCapacity = 1337
+		fireData.ammo.magazineCapacity = 42
 		fireData.ammo.numberOfMagazines = -1
 
 		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.initialSpeed.z = 24
+		fireData.shot.initialSpeed.z = 100
 		fireData.shot.projectileData = ProjectileEntityData(bulletData)
 
 		dprint('Changed LSAT...')
@@ -495,7 +495,7 @@ function MMWeapons:Write(mmResources)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('jng90'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 4)
+		self:OverrideGMMagSize(weaponData, 5)
 
 		local bulletData = MissileEntityData(mmResources:GetInstance('mortar'))
 		bulletData:MakeWritable()
@@ -541,6 +541,7 @@ function MMWeapons:Write(mmResources)
 
 		local fireData = FiringFunctionData(mmResources:GetInstance('40mmlvgfire'))
 		fireData:MakeWritable()
+		fireData.shot.initialSpeed.z = 100
 		fireData.shot.numberOfBulletsPerShell = 30
 		fireData.ammo.magazineCapacity = 1
 		dprint('Changed 40MM LVG Launcher...')
@@ -551,9 +552,9 @@ function MMWeapons:Write(mmResources)
 
 		local meleeData = MeleeEntityCommonData(mmResources:GetInstance('knoife'))
 		meleeData:MakeWritable()
-		meleeData.meleeAttackDistance = 1
-		meleeData.maxAttackHeightDifference = 0
-		meleeData.invalidMeleeAttackZone = 90
+		meleeData.meleeAttackDistance = 2
+		meleeData.maxAttackHeightDifference = 5
+		meleeData.invalidMeleeAttackZone = 5
 		dprint('Changed Knoife (Knife)...')
 	end
 end
@@ -601,8 +602,8 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 	gmPreset_Normal[1].killsNeeded = 2
 	gmPreset_Normal[2].killsNeeded = 3
 	gmPreset_Normal[3].killsNeeded = 4
-	gmPreset_Normal[4].killsNeeded = 1
-	gmPreset_Normal[5].killsNeeded = 2
+	gmPreset_Normal[4].killsNeeded = 3
+	gmPreset_Normal[5].killsNeeded = 3
 	gmPreset_Normal[6].killsNeeded = 4
 	gmPreset_Normal[7].killsNeeded = 1
 	gmPreset_Normal[8].killsNeeded = 2
