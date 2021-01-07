@@ -20,3 +20,10 @@ A Battlefield 3: Venice Unleashed mod for the Gun Master gamemode with crazy-ass
 - SPAS-12
 - MK3A1 Jackhammer
 - ACW-R
+- M-TAR
+- Steyr Aug
+- SCAR-L
+- L86
+- HK-417 (M417)
+- JNG-90
+- M320 LVG
