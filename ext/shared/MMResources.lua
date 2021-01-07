@@ -24,7 +24,7 @@ function MMResources:__init()
 
 	self.MMResources["magnum44"] = {}
 	self.MMResources["magnum44"]["Partition"] = '584C0B65-BC87-4853-AD28-7B7CEB21B336'
-	self.MMResources["magnum44"]["Instance"] = '09C7A2C4-DA0C-4F4C-B1C9-772A66AEB157'
+	self.MMResources["magnum44"]["Instance"] = 'E93DB755-1B3D-4AE2-8358-1107A21DEC5A'
 
 	self.MMResources["pp19"] = {}
 	self.MMResources["pp19"]["Partition"] = '983A236F-22EB-11E0-87CC-DAB15BD78BE2'
@@ -89,6 +89,10 @@ function MMResources:__init()
 	self.MMResources["claymoreexp"] = {}
 	self.MMResources["claymoreexp"]["Partition"] = '8709A814-1FF9-11E0-8A74-C88A4F19AAB4'
 	self.MMResources["claymoreexp"]["Instance"] = '5120E4F0-CD8C-4926-A45C-DA4460865508'
+
+	self.MMResources["lsat"] = {}
+	self.MMResources["lsat"]["Partition"] = '75E9AE70-B8B5-4A63-BDCC-AAF2914277D2'
+	self.MMResources["lsat"]["Instance"] = '1153E489-7C95-402B-BB66-F38D1C830C10'
 
 	self.MMResources["l86"] = {}
 	self.MMResources["l86"]["Partition"] = '0BF57B31-9632-484F-8922-0BD476C5FF62'

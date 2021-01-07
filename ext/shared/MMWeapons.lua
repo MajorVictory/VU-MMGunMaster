@@ -115,6 +115,24 @@ function MMWeapons:Write(mmResources)
 		mmResources:SetLoaded('magnum44', false)
 		mmResources:SetLoaded('smawmissile', false)
 
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('magnum44'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		for i=1, #weaponData.weaponModifierData do
+			local weaponModData = WeaponModifierData(weaponData.weaponModifierData[i])
+			local unlockAsset = UnlockAsset(weaponModData.unlockAsset)
+			if (unlockAsset.name == 'Gameplay/XP2/GM_Deploytime') then
+				for j=1, #weaponModData.modifiers do
+					local unlockMod = weaponModData.modifiers[j]
+					if (unlockMod:Is('WeaponMagazineModifier')) then
+						local magMod = WeaponMagazineModifier(unlockMod)
+						magMod:MakeWritable()
+						magMod.magazineCapacity = 1
+					end
+				end
+			end
+		end
+
 		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
 		missileData:MakeWritable()
 		missileData.maxSpeed = 750
@@ -123,8 +141,9 @@ function MMWeapons:Write(mmResources)
 		print('Changed SMAW Missile...')
 
 		-- swap magnum for smaw rocket
-		local fireData = FiringFunctionData(mmResources:GetInstance('magnum44'))
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
+		fireData.ammo.magazineCapacity = 1
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(missileData)
 		print('Changed Magnum .44...')
@@ -162,8 +181,8 @@ function MMWeapons:Write(mmResources)
 		local bulletData = BulletEntityData(mmResources:GetInstance('pp19_bullet'))
 		bulletData:MakeWritable()
 		bulletData.gravity = -9.8
-		bulletData.startDamage = 120
-		bulletData.endDamage = 500
+		bulletData.startDamage = 220
+		bulletData.endDamage = 600
 		bulletData.damageFalloffStartDistance = 25
 		bulletData.damageFalloffEndDistance = 500
 		print('Changed PP-19 Bizon...')
@@ -196,9 +215,9 @@ function MMWeapons:Write(mmResources)
 		local bulletData = BulletEntityData(mmResources:GetInstance('12gfrag'))
 		bulletData:MakeWritable()
 		bulletData.gravity = -4.5
-		bulletData.startDamage = 202
+		bulletData.startDamage = 300
 		bulletData.endDamage = 5000
-		bulletData.damageFalloffStartDistance = 25
+		bulletData.damageFalloffStartDistance = 0
 		bulletData.damageFalloffEndDistance = 500
 		bulletData.timeToLive = 5
 		bulletData.impactImpulse = 40000
@@ -237,7 +256,15 @@ function MMWeapons:Write(mmResources)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 380
 		fireData.shot.numberOfBulletsPerShell = 250
+
 		fireData.fireLogic.rateOfFire = 900
+		fireData.fireLogic.recoil.maxRecoilAngleX = 90
+	    fireData.fireLogic.recoil.minRecoilAngleX = 60
+	    fireData.fireLogic.recoil.maxRecoilAngleY = 35
+	    fireData.fireLogic.recoil.minRecoilAngleY = -35
+	    fireData.fireLogic.recoil.maxRecoilAngleZ = 0
+	    fireData.fireLogic.recoil.minRecoilAngleZ = 0
+
 		fireData.ammo.magazineCapacity = 1
 		fireData.ammo.numberOfMagazines = -1
 
@@ -291,12 +318,12 @@ function MMWeapons:Write(mmResources)
 
 		for i=1, #fireData do
 			fireData[i]:MakeWritable()
-			fireData[i].fireLogic.recoil.maxRecoilAngleX = 180
-	        fireData[i].fireLogic.recoil.minRecoilAngleX = -180
-	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 180
-	        fireData[i].fireLogic.recoil.minRecoilAngleY = -180
-	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 180
-	        fireData[i].fireLogic.recoil.minRecoilAngleZ = -180
+			fireData[i].fireLogic.recoil.maxRecoilAngleX = 45
+	        fireData[i].fireLogic.recoil.minRecoilAngleX = -45
+	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 45
+	        fireData[i].fireLogic.recoil.minRecoilAngleY = -45
+	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 45
+	        fireData[i].fireLogic.recoil.minRecoilAngleZ = -45
 			fireData[i].fireLogic.rateOfFire = 600
 
 			fireData[i].ammo.magazineCapacity = 87
@@ -347,7 +374,7 @@ function MMWeapons:Write(mmResources)
 		bulletData.startDamage = 100
 		bulletData.endDamage = 1000
 		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 100
+		bulletData.damageFalloffEndDistance = 200
 		print('Changed ACW-R...')
 	end
 
@@ -409,8 +436,8 @@ function MMWeapons:Write(mmResources)
 
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('40mmlvg_grenadeexp'))
 		expData:MakeWritable()
-		expData.blastDamage = 1234
-		expData.blastRadius = 10
+		expData.blastDamage = 888
+		expData.blastRadius = 8
 		expData.blastImpulse = 0
 		expData.shockwaveDamage = 12
 		expData.shockwaveRadius = 3
@@ -423,7 +450,6 @@ function MMWeapons:Write(mmResources)
 
 	if (mmResources:IsLoaded('aug') and mmResources:IsLoaded('augbullet')) then
 		mmResources:SetLoaded('aug', false)
-		mmResources:SetLoaded('augbullet', false)
 
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('aug'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
@@ -549,7 +575,7 @@ function MMWeapons:Write(mmResources)
 		local expData = VeniceExplosionEntityData(mmResources:GetInstance('claymoreexp'))
 		expData:MakeWritable()
 		expData.blastDamage = 4200
-		expData.blastRadius = 14
+		expData.blastRadius = 3
 		expData.blastImpulse = 1987
 		expData.shockwaveDamage = 10
 		expData.shockwaveRadius = 5
@@ -560,9 +586,47 @@ function MMWeapons:Write(mmResources)
 		print('Changed Claymore Explosion...')
 	end
 
+	if (mmResources:IsLoaded('lsat')) then
+		mmResources:SetLoaded('lsat', false)
+
+		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('lsat'))
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		for i=1, #weaponData.weaponModifierData do
+			local weaponModData = WeaponModifierData(weaponData.weaponModifierData[i])
+			if (weaponModData.unlockAsset:Is('UnlockAsset')) then
+				local unlockAsset = UnlockAsset(weaponModData.unlockAsset)
+				if (unlockAsset.name == 'Gameplay/XP2/GM_Deploytime') then
+					for j=1, #weaponModData.modifiers do
+						local unlockMod = weaponModData.modifiers[j]
+						if (unlockMod:Is('WeaponMagazineModifier')) then
+							local magMod = WeaponMagazineModifier(unlockMod)
+							magMod:MakeWritable()
+							magMod.magazineCapacity = 1337
+						end
+					end
+				end
+			end
+		end
+
+		local bulletData = GrenadeEntityData(mmResources:GetInstance('40mmlvg_grenade'))
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
+		fireData:MakeWritable()
+
+		fireData.sound = SoundPatchAsset(ResourceManager:SearchForDataContainer('Sound/Weapons/Handheld/M320/Weapon_GL_M320'))
+
+		fireData.ammo.magazineCapacity = 1337
+		fireData.ammo.numberOfMagazines = -1
+
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.initialSpeed.z = 24
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+
+		print('Changed LSAT...')
+	end
+
 	if (mmResources:IsLoaded('l86') and mmResources:IsLoaded('augbullet')) then
 		mmResources:SetLoaded('l86', false)
-		mmResources:SetLoaded('augbullet', false)
 
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('l86'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
@@ -586,20 +650,11 @@ function MMWeapons:Write(mmResources)
 
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
-		fireData.shot.numberOfBulletsPerShell = 87
-		fireData.shot.numberOfBulletsPerShot = 87
-		fireData.shot.numberOfBulletsPerBurst = 25
 
 		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 
-		fireData.fireLogic.rateOfFireForBurst = 900
-		fireData.fireLogic.recoil.maxRecoilAngleX = 5
-	    fireData.fireLogic.recoil.minRecoilAngleX = -5
-	    fireData.fireLogic.recoil.maxRecoilAngleY = 5
-	    fireData.fireLogic.recoil.minRecoilAngleY = -5
-	    fireData.fireLogic.recoil.maxRecoilAngleZ = 5
-	    fireData.fireLogic.recoil.minRecoilAngleZ = -5
+		fireData.fireLogic.rateOfFire = 2000
 
 		fireData.weaponDispersion.standDispersion.minAngle = 3.5
 		fireData.weaponDispersion.standDispersion.maxAngle = 5
@@ -683,6 +738,7 @@ function MMWeapons:Write(mmResources)
 
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
+		fireData.shot.initialSpeed.z = 55
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(bulletData)
 		fireData.ammo.magazineCapacity = 4
@@ -865,9 +921,9 @@ function MMWeapons:Write(mmResources)
 
 		local meleeData = MeleeEntityCommonData(mmResources:GetInstance('knoife'))
 		meleeData:MakeWritable()
-		meleeData.meleeAttackDistance = 5
-		meleeData.maxAttackHeightDifference = 5
-		meleeData.invalidMeleeAttackZone = 10
+		meleeData.meleeAttackDistance = 1
+		meleeData.maxAttackHeightDifference = 0
+		meleeData.invalidMeleeAttackZone = 90
 		print('Changed Knoife (Knife)...')
 	end
 

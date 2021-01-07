@@ -99,8 +99,8 @@ Hooks:Install('Soldier:Damage', 1987, function(hook, soldier, info, giverInfo)
 		SharedUtils:Print('-----------------------------------------------')
 	end
 
-  	-- no collision damage or 'Count' damage
-	if giverInfo.damageType == 4 or giverInfo.damageType == 6 then
+  	-- no collision damage
+	if giverInfo.damageType == 4 then
 		info.damage = 0
 		hook:Return()
   	end
