@@ -8,7 +8,7 @@ function MMPlayers:Write(mmResources)
 		playerPhys:MakeWritable()
 		playerPhys.jumpPenaltyTime = 0
 		playerPhys.jumpPenaltyFactor = 0
-		print('Changed Player Physics...')
+		dprint('Changed Player Physics...')
 	end
 
 	if (mmResources:IsLoaded('yump')) then
@@ -16,15 +16,13 @@ function MMPlayers:Write(mmResources)
 
 		local playerYump = JumpStateData(mmResources:GetInstance('yump'))
 		playerYump:MakeWritable()
-		playerYump.jumpHeight = 5
+		playerYump.jumpHeight = 6
 		playerYump.jumpEffectSize = 5
-		print('Changed Player Jump...')
+		dprint('Changed Player Jump...')
 	end
 
-	if (mmResources:IsLoaded('pose_stand') and
-		mmResources:IsLoaded('pose_standair') and
-		mmResources:IsLoaded('pose_swimming') and
-		mmResources:IsLoaded('pose_climbing') and
+	if (mmResources:IsLoaded('pose_stand') and mmResources:IsLoaded('pose_standair') and
+		mmResources:IsLoaded('pose_swimming') and mmResources:IsLoaded('pose_climbing') and
 		mmResources:IsLoaded('pose_chute')) then
 
 		mmResources:SetLoaded('pose_stand', false)
@@ -37,29 +35,29 @@ function MMPlayers:Write(mmResources)
 		poseStand:MakeWritable()
 		poseStand.velocity = 4
 		poseStand.sprintMultiplier = 3
-		print('Changed Player Stand Pose...')
+		dprint('Changed Player Stand Pose...')
 
 		local poseStandAir = CharacterStatePoseInfo(mmResources:GetInstance('pose_standair'))
 		poseStandAir:MakeWritable()
 		poseStandAir.velocity = 5
 		poseStandAir.sprintMultiplier = 3.5
-		print('Changed Player Stand Air Pose...')
+		dprint('Changed Player Stand Air Pose...')
 
 		local poseSwim = CharacterStatePoseInfo(mmResources:GetInstance('pose_swimming'))
 		poseSwim:MakeWritable()
 		poseSwim.velocity = 8
-		print('Changed Player Swim Pose...')
+		dprint('Changed Player Swim Pose...')
 
 		local poseClimb = CharacterStatePoseInfo(mmResources:GetInstance('pose_climbing'))
 		poseClimb:MakeWritable()
 		poseClimb.velocity = 15
 		poseClimb.sprintMultiplier = 2
-		print('Changed Player Climb Pose...')
+		dprint('Changed Player Climb Pose...')
 
 		local poseClimb = CharacterStatePoseInfo(mmResources:GetInstance('pose_chute'))
 		poseClimb:MakeWritable()
 		poseClimb.velocity = 40
-		print('Changed Player Parachute Pose...')
+		dprint('Changed Player Parachute Pose...')
 	end
 end
 

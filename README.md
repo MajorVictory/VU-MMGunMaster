@@ -10,8 +10,9 @@ A Battlefield 3: Venice Unleashed mod for the Gun Master gamemode with crazy-ass
 - Movement speeds while walking, running, swimming, climbing, and falling without a chute are faster
 - You can Yump. Yumping is better than jumping
 - Players don't take damage from falling or running into things because 2FAST
+- Knife range is reduced to 1 meter
 
-### Weapons Modified - Work in progress
+### Weapons Modified
 - MP443
 - M93R
 - .44 Magnum
@@ -23,6 +24,7 @@ A Battlefield 3: Venice Unleashed mod for the Gun Master gamemode with crazy-ass
 - M-TAR
 - Steyr Aug
 - SCAR-L
+- LSAT
 - L86
 - HK-417 (M417)
 - JNG-90
