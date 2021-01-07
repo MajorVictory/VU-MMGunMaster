@@ -8,20 +8,20 @@ function MMWeapons:Write(mmResources)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('mp443'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 100)
+		self:OverrideGMMagSize(weaponData, 420)
 
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 450
 		fireData.fireLogic.rateOfFire = 900
-		fireData.ammo.magazineCapacity = 100
+		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 		
 		local bulletData = BulletEntityData(fireData.shot.projectileData)
 		bulletData:MakeWritable()
 		bulletData.gravity = -9.8
 		bulletData.startDamage = 600
-		bulletData.endDamage = 900
+		bulletData.endDamage = 1000
 		bulletData.damageFalloffStartDistance = 0
 		bulletData.damageFalloffEndDistance = 15
 		dprint('Changed [GM] Mp443...')
@@ -245,7 +245,7 @@ function MMWeapons:Write(mmResources)
 		bulletData.startDamage = 100
 		bulletData.endDamage = 1000
 		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 200
+		bulletData.damageFalloffEndDistance = 25
 		dprint('Changed ACW-R...')
 	end
 
@@ -256,7 +256,7 @@ function MMWeapons:Write(mmResources)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('mtar'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 5)
+		self:OverrideGMMagSize(weaponData, 2)
 
 		local grenadeData = GrenadeEntityData(mmResources:GetInstance('40mmlvg_grenade'))
 		grenadeData:MakeWritable()
@@ -275,7 +275,7 @@ function MMWeapons:Write(mmResources)
 		fireData.weaponDispersion.proneDispersion.maxAngle = 5
 		fireData.weaponDispersion.proneDispersion.increasePerShot = 100
 
-		fireData.shot.initialSpeed.z = 20
+		fireData.shot.initialSpeed.z = 35
 		fireData.shot.numberOfBulletsPerShell = 10
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(grenadeData)
@@ -284,7 +284,7 @@ function MMWeapons:Write(mmResources)
 
 		fireData.fireLogic.rateOfFire = 250
 
-		fireData.ammo.magazineCapacity = 5
+		fireData.ammo.magazineCapacity = 2
 		fireData.ammo.numberOfMagazines = -1
 		dprint('Changed MTAR...')
 	end
@@ -346,7 +346,7 @@ function MMWeapons:Write(mmResources)
 		bulletData.gravity = -9.8
 		bulletData.startDamage = 6969
 		bulletData.endDamage = 0
-		bulletData.damageFalloffStartDistance = 0
+		bulletData.damageFalloffStartDistance = 2
 		bulletData.damageFalloffEndDistance = 100
 		dprint('Changed Steyr Aug...')
 	end
@@ -358,16 +358,16 @@ function MMWeapons:Write(mmResources)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('scarl'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 10)
+		self:OverrideGMMagSize(weaponData, 5)
 
 		local claymoreData = ExplosionPackEntityData(mmResources:GetInstance('claymore'))
 		claymoreData:MakeWritable()
 		claymoreData.maxAttachableInclination = 360
-		claymoreData.timeToLive = 20
-		claymoreData.maxCount = 40
+		claymoreData.timeToLive = 10
+		claymoreData.maxCount = 25
 
 		claymoreData.soldierDetonationData.useAngle = false
-		claymoreData.soldierDetonationData.radius = 3
+		claymoreData.soldierDetonationData.radius = 2
 		claymoreData.soldierDetonationData.soldierDetonationActivationDelay = 1
 		claymoreData.soldierDetonationData.minSpeedForActivation = 0
 
@@ -420,7 +420,7 @@ function MMWeapons:Write(mmResources)
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('lsat'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
-		self:OverrideGMMagSize(weaponData, 42)
+		self:OverrideGMMagSize(weaponData, 20)
 
 		local bulletData = GrenadeEntityData(mmResources:GetInstance('40mmlvg_grenade'))
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
@@ -428,7 +428,7 @@ function MMWeapons:Write(mmResources)
 
 		fireData.sound = SoundPatchAsset(ResourceManager:SearchForDataContainer('Sound/Weapons/Handheld/M320/Weapon_GL_M320'))
 
-		fireData.ammo.magazineCapacity = 42
+		fireData.ammo.magazineCapacity = 20
 		fireData.ammo.numberOfMagazines = -1
 
 		fireData.shot.projectileData:MakeWritable()
@@ -506,10 +506,10 @@ function MMWeapons:Write(mmResources)
 
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
-		fireData.shot.initialSpeed.z = 55
+		fireData.shot.initialSpeed.z = 500
 		fireData.shot.projectileData:MakeWritable()
 		fireData.shot.projectileData = ProjectileEntityData(bulletData)
-		fireData.ammo.magazineCapacity = 4
+		fireData.ammo.magazineCapacity = 5
 		dprint('Changed JNG-90...')
 	end
 
@@ -599,9 +599,9 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 	local gmPreset_RUArmsRace = gmCounterData.weaponsPreset[8].gunMasterLevelInfos
 	local gmPreset_EUArmsRace = gmCounterData.weaponsPreset[9].gunMasterLevelInfos
 
-	gmPreset_Normal[1].killsNeeded = 2
-	gmPreset_Normal[2].killsNeeded = 3
-	gmPreset_Normal[3].killsNeeded = 4
+	gmPreset_Normal[1].killsNeeded = 1
+	gmPreset_Normal[2].killsNeeded = 2
+	gmPreset_Normal[3].killsNeeded = 3
 	gmPreset_Normal[4].killsNeeded = 3
 	gmPreset_Normal[5].killsNeeded = 3
 	gmPreset_Normal[6].killsNeeded = 4
@@ -629,9 +629,9 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 	gmPreset_NormalReversed[10].killsNeeded = 4
 	gmPreset_NormalReversed[11].killsNeeded = 2
 	gmPreset_NormalReversed[12].killsNeeded = 1
-	gmPreset_NormalReversed[13].killsNeeded = 4
-	gmPreset_NormalReversed[14].killsNeeded = 3
-	gmPreset_NormalReversed[15].killsNeeded = 2
+	gmPreset_NormalReversed[13].killsNeeded = 3
+	gmPreset_NormalReversed[14].killsNeeded = 2
+	gmPreset_NormalReversed[15].killsNeeded = 1
 	gmPreset_NormalReversed[16].killsNeeded = 3
 	gmPreset_NormalReversed[17].killsNeeded = 2
 
