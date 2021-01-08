@@ -185,6 +185,32 @@ function MMWeapons:Write(mmResources)
 		dprint('Changed Spas-12...')
 	end
 
+	if (mmResources:IsLoaded('spas12recoilcam')) then
+		mmResources:SetLoaded('spas12recoilcam', false)
+
+		local recoilCam = mmResources:GetWritableInstance('spas12recoilcam')
+		--recoilCam.springConstant = 1000
+		--recoilCam.springDamping = 100
+		--recoilCam.springMinThresholdAngle = 0.0
+	end
+
+	if (mmResources:IsLoaded('spas12gunsway')) then
+		mmResources:SetLoaded('spas12gunsway', false)
+
+		local gunSway = mmResources:GetWritableInstance('spas12gunsway')
+
+		gunSway.stand.noZoom.recoil.recoilAmplitudeDecreaseFactor = 2
+		gunSway.stand.zoom.recoil.recoilAmplitudeDecreaseFactor = 2
+
+		gunSway.crouch.noZoom.recoil.recoilAmplitudeDecreaseFactor = 2
+		gunSway.crouch.zoom.recoil.recoilAmplitudeDecreaseFactor = 2
+
+		gunSway.prone.noZoom.recoil.recoilAmplitudeDecreaseFactor = 2
+		gunSway.prone.zoom.recoil.recoilAmplitudeDecreaseFactor = 2
+
+		
+	end
+
 	if (mmResources:IsLoaded('jackhammer')) then
 		mmResources:SetLoaded('jackhammer', false)
 
@@ -438,13 +464,23 @@ function MMWeapons:Write(mmResources)
 		dprint('Changed LSAT...')
 	end
 
-	if (mmResources:IsLoaded('l86') and mmResources:IsLoaded('augbullet')) then
+	if (mmResources:IsLoaded('l86') and mmResources:IsLoaded('l86bulletmod') and mmResources:IsLoaded('sniperbullet')) then
 		mmResources:SetLoaded('l86', false)
+		mmResources:SetLoaded('l86bulletmod', false)
 
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('l86'))
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 420)
+
+		local bulletData = BulletEntityData(mmResources:GetInstance('sniperbullet'))
+		bulletData:MakeWritable()
+		bulletData.gravity = 0
+		bulletData.startDamage = 100
+		bulletData.endDamage = 1000
+		bulletData.damageFalloffStartDistance = 2
+		bulletData.damageFalloffEndDistance = 25
+		dprint('Changed 762 Sniper Bullet...')
 
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
@@ -452,22 +488,27 @@ function MMWeapons:Write(mmResources)
 		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 
-		fireData.fireLogic.rateOfFire = 2000
+		fireData.fireLogic.rateOfFire = 2500
 
-		fireData.weaponDispersion.standDispersion.minAngle = 3.5
-		fireData.weaponDispersion.standDispersion.maxAngle = 5
-		fireData.weaponDispersion.standDispersion.increasePerShot = 0.8
-		fireData.weaponDispersion.crouchDispersion.minAngle = 3
-		fireData.weaponDispersion.crouchDispersion.maxAngle = 4.5
-		fireData.weaponDispersion.crouchDispersion.increasePerShot = 0.8
-		fireData.weaponDispersion.proneDispersion.minAngle = 2.5
-		fireData.weaponDispersion.proneDispersion.maxAngle = 4
-		fireData.weaponDispersion.proneDispersion.increasePerShot = 0.8
+		fireData.weaponDispersion.standDispersion.minAngle = 0
+		fireData.weaponDispersion.standDispersion.maxAngle = 0
+		fireData.weaponDispersion.standDispersion.increasePerShot = 0
+		fireData.weaponDispersion.crouchDispersion.minAngle = 0
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 0
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 0
+		fireData.weaponDispersion.proneDispersion.minAngle = 0
+		fireData.weaponDispersion.proneDispersion.maxAngle = 0
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 0
+
+		local projectileMod = WeaponProjectileModifier(mmResources:GetInstance('l86bulletmod'))
+		projectileMod:MakeWritable()
+		projectileMod.projectileData:MakeWritable()
+		projectileMod.projectileData = ProjectileEntityData(bulletData)
 
 		dprint('Changed L86...')
 	end
 
-	if (mmResources:IsLoaded('hk417')) then
+	if (mmResources:IsLoaded('hk417') and mmResources:IsLoaded('sniperbullet')) then
 		mmResources:SetLoaded('hk417', false)
 
 		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('hk417'))
@@ -475,7 +516,6 @@ function MMWeapons:Write(mmResources)
 
 		self:OverrideGMMagSize(weaponData, 80085)
 
-		local bulletData = BulletEntityData(mmResources:GetInstance('12gfrag'))
 		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
 		fireData:MakeWritable()
 
@@ -483,7 +523,7 @@ function MMWeapons:Write(mmResources)
 		fireData.ammo.numberOfMagazines = -1
 
 		fireData.shot.projectileData:MakeWritable()
-		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+		fireData.shot.projectileData = ProjectileEntityData(BulletEntityData(mmResources:GetInstance('sniperbullet')))
 
 		dprint('Changed M417...')
 	end
@@ -599,41 +639,41 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 	local gmPreset_RUArmsRace = gmCounterData.weaponsPreset[8].gunMasterLevelInfos
 	local gmPreset_EUArmsRace = gmCounterData.weaponsPreset[9].gunMasterLevelInfos
 
-	gmPreset_Normal[1].killsNeeded = 1
-	gmPreset_Normal[2].killsNeeded = 2
-	gmPreset_Normal[3].killsNeeded = 3
-	gmPreset_Normal[4].killsNeeded = 3
-	gmPreset_Normal[5].killsNeeded = 3
-	gmPreset_Normal[6].killsNeeded = 4
-	gmPreset_Normal[7].killsNeeded = 1
-	gmPreset_Normal[8].killsNeeded = 2
-	gmPreset_Normal[9].killsNeeded = 3
-	gmPreset_Normal[10].killsNeeded = 5
-	gmPreset_Normal[11].killsNeeded = 4
-	gmPreset_Normal[12].killsNeeded = 4
-	gmPreset_Normal[13].killsNeeded = 1
-	gmPreset_Normal[14].killsNeeded = 1
-	gmPreset_Normal[15].killsNeeded = 5
-	gmPreset_Normal[16].killsNeeded = 3
-	gmPreset_Normal[17].killsNeeded = 2
+	gmPreset_Normal[1].killsNeeded = 1 	-- GM_MP443
+	gmPreset_Normal[2].killsNeeded = 2 	-- GM_M93
+	gmPreset_Normal[3].killsNeeded = 3 	-- GM_T44
+	gmPreset_Normal[4].killsNeeded = 2 	-- GM_PP
+	gmPreset_Normal[5].killsNeeded = 2 	-- GM_P90
+	gmPreset_Normal[6].killsNeeded = 4 	-- GM_SPAS
+	gmPreset_Normal[7].killsNeeded = 1 	-- GM_Jackhammer
+	gmPreset_Normal[8].killsNeeded = 2 	-- GM_ACR
+	gmPreset_Normal[9].killsNeeded = 3 	-- GM_MTAR
+	gmPreset_Normal[10].killsNeeded = 2	-- GM_AUG
+	gmPreset_Normal[11].killsNeeded = 2	-- GM_SCAR
+	gmPreset_Normal[12].killsNeeded = 2	-- GM_LSAT
+	gmPreset_Normal[13].killsNeeded = 2	-- GM_L86
+	gmPreset_Normal[14].killsNeeded = 2	-- GM_M417
+	gmPreset_Normal[15].killsNeeded = 2	-- GM_JNG90
+	gmPreset_Normal[16].killsNeeded = 2	-- GM_M320
+	gmPreset_Normal[17].killsNeeded = 2	-- GM_Knife
 
-	gmPreset_NormalReversed[1].killsNeeded = 5
-	gmPreset_NormalReversed[2].killsNeeded = 1
-	gmPreset_NormalReversed[3].killsNeeded = 1
-	gmPreset_NormalReversed[4].killsNeeded = 4
-	gmPreset_NormalReversed[5].killsNeeded = 4
-	gmPreset_NormalReversed[6].killsNeeded = 5
-	gmPreset_NormalReversed[7].killsNeeded = 3
-	gmPreset_NormalReversed[8].killsNeeded = 2
-	gmPreset_NormalReversed[9].killsNeeded = 1
-	gmPreset_NormalReversed[10].killsNeeded = 4
-	gmPreset_NormalReversed[11].killsNeeded = 2
-	gmPreset_NormalReversed[12].killsNeeded = 1
-	gmPreset_NormalReversed[13].killsNeeded = 3
-	gmPreset_NormalReversed[14].killsNeeded = 2
-	gmPreset_NormalReversed[15].killsNeeded = 1
-	gmPreset_NormalReversed[16].killsNeeded = 3
-	gmPreset_NormalReversed[17].killsNeeded = 2
+	gmPreset_NormalReversed[1].killsNeeded = 2 	-- GM_JNG90
+	gmPreset_NormalReversed[2].killsNeeded = 2 	-- GM_M417
+	gmPreset_NormalReversed[3].killsNeeded = 2 	-- GM_L86
+	gmPreset_NormalReversed[4].killsNeeded = 2 	-- GM_LSAT
+	gmPreset_NormalReversed[5].killsNeeded = 2 	-- GM_SCAR
+	gmPreset_NormalReversed[6].killsNeeded = 2 	-- GM_AUG
+	gmPreset_NormalReversed[7].killsNeeded = 3 	-- GM_MTAR
+	gmPreset_NormalReversed[8].killsNeeded = 2 	-- GM_ACR
+	gmPreset_NormalReversed[9].killsNeeded = 1 	-- GM_Jackhammer
+	gmPreset_NormalReversed[10].killsNeeded = 4	-- GM_SPAS
+	gmPreset_NormalReversed[11].killsNeeded = 2	-- GM_P90
+	gmPreset_NormalReversed[12].killsNeeded = 2	-- GM_PP
+	gmPreset_NormalReversed[13].killsNeeded = 3	-- GM_T44
+	gmPreset_NormalReversed[14].killsNeeded = 2	-- GM_M93
+	gmPreset_NormalReversed[15].killsNeeded = 1	-- GM_MP443
+	gmPreset_NormalReversed[16].killsNeeded = 2	-- GM_M320
+	gmPreset_NormalReversed[17].killsNeeded = 2	-- GM_Knife
 
 end
 

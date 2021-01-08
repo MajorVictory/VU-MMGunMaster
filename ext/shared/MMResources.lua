@@ -3,14 +3,9 @@ class "MMResources"
 function MMResources:__init()
 	self.MMResources = {}
 
-	self.MMResources["gmpreset_0"] = {}
-	self.MMResources["gmpreset_0"]["Partition"] = 'F71EE45B-1BB0-4442-A46D-5B079A722230'
-	self.MMResources["gmpreset_0"]["Instance"] = 'F0D72AE2-9243-43D4-9070-E97B53430FB8'
-
-	self.MMResources["gmpreset_0_xp4"] = {}
-	self.MMResources["gmpreset_0_xp4"]["Partition"] = 'F58C83A7-C753-4360-A9C0-4E44C79836F8'
-	self.MMResources["gmpreset_0_xp4"]["Instance"] = '2D869E35-5D5F-4256-B876-C85911F0A7D6'
-
+	self.MMResources["chat"] = {}
+	self.MMResources["chat"]["Partition"] = '3E6AF1E2-B10E-11DF-9395-96FA88A245BF'
+	self.MMResources["chat"]["Instance"] = '78B3E33E-098B-3320-ED15-89A36F04007B'
 
 
 	self.MMResources["mp443"] = {}
@@ -52,6 +47,14 @@ function MMResources:__init()
 	self.MMResources["spas12"] = {}
 	self.MMResources["spas12"]["Partition"] = '37F8F2ED-CAC0-42E8-B77B-2300A99C3B0F'
 	self.MMResources["spas12"]["Instance"] = '27C36CA8-C16D-4D2B-B3DC-73E7AF91BE85'
+
+	self.MMResources["spas12recoilcam"] = {}
+	self.MMResources["spas12recoilcam"]["Partition"] = '37BBF029-E4E8-4D7B-A574-863CE082C3F6'
+	self.MMResources["spas12recoilcam"]["Instance"] = '073AF737-8B82-4C3C-BAB5-CAF8C306F033'
+
+	self.MMResources["spas12gunsway"] = {}
+	self.MMResources["spas12gunsway"]["Partition"] = '37BBF029-E4E8-4D7B-A574-863CE082C3F6'
+	self.MMResources["spas12gunsway"]["Instance"] = '8D16AD27-527B-40B5-A8C7-C4C23D4EC545'
 
 	self.MMResources["jackhammer"] = {}
 	self.MMResources["jackhammer"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
@@ -108,6 +111,14 @@ function MMResources:__init()
 	self.MMResources["l86"] = {}
 	self.MMResources["l86"]["Partition"] = '0BF57B31-9632-484F-8922-0BD476C5FF62'
 	self.MMResources["l86"]["Instance"] = 'AF6D3176-1825-4EAE-9496-B4CEAC61F238'
+
+	self.MMResources["l86bulletmod"] = {}
+	self.MMResources["l86bulletmod"]["Partition"] = '0BF57B31-9632-484F-8922-0BD476C5FF62'
+	self.MMResources["l86bulletmod"]["Instance"] = 'D1A33CDC-4561-450E-85B0-FF0529392515'
+
+	self.MMResources["sniperbullet"] = {}
+	self.MMResources["sniperbullet"]["Partition"] = '808A49CA-F23B-711E-D6F7-214B81DE272B'
+	self.MMResources["sniperbullet"]["Instance"] = '82356FE8-4061-0359-3D5B-114F424962B6'
 
 	self.MMResources["hk417"] = {}
 	self.MMResources["hk417"]["Partition"] = 'E9658C2B-DE00-413D-B63B-BC3504652373'
@@ -210,4 +221,16 @@ function MMResources:GetInstance(resourceName, secondaryResource)
 	end
 end
 
+function MMResources:GetWritableInstance(resourceName, secondaryResource, writable)
+
+		local instance = self:GetInstance(resourceName,secondaryResource)
+
+		local instanceType = instance.typeInfo.name
+
+		local returnInstance = _G[instanceType](instance)
+		if ((writable or writable == nil) and returnInstance.MakeWritable ~= nil) then
+			returnInstance:MakeWritable()
+		end
+		return returnInstance
+end
 return MMResources()

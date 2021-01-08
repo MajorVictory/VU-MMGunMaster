@@ -1,6 +1,15 @@
 class "MMPlayers"
 
 function MMPlayers:Write(mmResources)
+
+	if (mmResources:IsLoaded('chat')) then
+		mmResources:SetLoaded('chat', false)
+		local chat = UIMessageCompData(mmResources:GetInstance('chat'))
+		chat:MakeWritable()
+		MessageInfo(chat.chatMessageInfo).messageQueueSize = 20
+	end
+
+
 	if (mmResources:IsLoaded('playerphys')) then
 		mmResources:SetLoaded('playerphys', false)
 
