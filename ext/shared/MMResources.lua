@@ -48,14 +48,6 @@ function MMResources:__init()
 	self.MMResources["spas12"]["Partition"] = '37F8F2ED-CAC0-42E8-B77B-2300A99C3B0F'
 	self.MMResources["spas12"]["Instance"] = '27C36CA8-C16D-4D2B-B3DC-73E7AF91BE85'
 
-	self.MMResources["spas12recoilcam"] = {}
-	self.MMResources["spas12recoilcam"]["Partition"] = '37BBF029-E4E8-4D7B-A574-863CE082C3F6'
-	self.MMResources["spas12recoilcam"]["Instance"] = '073AF737-8B82-4C3C-BAB5-CAF8C306F033'
-
-	self.MMResources["spas12gunsway"] = {}
-	self.MMResources["spas12gunsway"]["Partition"] = '37BBF029-E4E8-4D7B-A574-863CE082C3F6'
-	self.MMResources["spas12gunsway"]["Instance"] = '8D16AD27-527B-40B5-A8C7-C4C23D4EC545'
-
 	self.MMResources["jackhammer"] = {}
 	self.MMResources["jackhammer"]["Partition"] = '014C428F-9A3C-4EA0-9F0C-873058E72438'
 	self.MMResources["jackhammer"]["Instance"] = 'C57F6902-E9BE-44B8-BCFA-9FFEB3A9A93C'

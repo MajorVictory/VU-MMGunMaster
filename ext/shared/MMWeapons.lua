@@ -154,13 +154,13 @@ function MMWeapons:Write(mmResources)
 		fireData.shot.initialSpeed.z = 380
 		fireData.shot.numberOfBulletsPerShell = 250
 
-		fireData.fireLogic.rateOfFire = 900
-		fireData.fireLogic.recoil.maxRecoilAngleX = 90
-	    fireData.fireLogic.recoil.minRecoilAngleX = 60
-	    fireData.fireLogic.recoil.maxRecoilAngleY = 35
-	    fireData.fireLogic.recoil.minRecoilAngleY = -35
-	    fireData.fireLogic.recoil.maxRecoilAngleZ = 0
-	    fireData.fireLogic.recoil.minRecoilAngleZ = 0
+		fireData.fireLogic.rateOfFire = 100
+		fireData.fireLogic.recoil.maxRecoilAngleX = -45
+	    fireData.fireLogic.recoil.minRecoilAngleX = -45
+	    fireData.fireLogic.recoil.maxRecoilAngleY = 45
+	    fireData.fireLogic.recoil.minRecoilAngleY = 45
+	    fireData.fireLogic.recoil.maxRecoilAngleZ = 45
+	    fireData.fireLogic.recoil.minRecoilAngleZ = 45
 
 		fireData.ammo.magazineCapacity = 1
 		fireData.ammo.numberOfMagazines = -1
@@ -185,32 +185,6 @@ function MMWeapons:Write(mmResources)
 		dprint('Changed Spas-12...')
 	end
 
-	if (mmResources:IsLoaded('spas12recoilcam')) then
-		mmResources:SetLoaded('spas12recoilcam', false)
-
-		local recoilCam = mmResources:GetWritableInstance('spas12recoilcam')
-		--recoilCam.springConstant = 1000
-		--recoilCam.springDamping = 100
-		--recoilCam.springMinThresholdAngle = 0.0
-	end
-
-	if (mmResources:IsLoaded('spas12gunsway')) then
-		mmResources:SetLoaded('spas12gunsway', false)
-
-		local gunSway = mmResources:GetWritableInstance('spas12gunsway')
-
-		gunSway.stand.noZoom.recoil.recoilAmplitudeDecreaseFactor = 2
-		gunSway.stand.zoom.recoil.recoilAmplitudeDecreaseFactor = 2
-
-		gunSway.crouch.noZoom.recoil.recoilAmplitudeDecreaseFactor = 2
-		gunSway.crouch.zoom.recoil.recoilAmplitudeDecreaseFactor = 2
-
-		gunSway.prone.noZoom.recoil.recoilAmplitudeDecreaseFactor = 2
-		gunSway.prone.zoom.recoil.recoilAmplitudeDecreaseFactor = 2
-
-		
-	end
-
 	if (mmResources:IsLoaded('jackhammer')) then
 		mmResources:SetLoaded('jackhammer', false)
 
@@ -228,12 +202,12 @@ function MMWeapons:Write(mmResources)
 
 		for i=1, #fireData do
 			fireData[i]:MakeWritable()
-			fireData[i].fireLogic.recoil.maxRecoilAngleX = 45
-	        fireData[i].fireLogic.recoil.minRecoilAngleX = -45
-	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 45
-	        fireData[i].fireLogic.recoil.minRecoilAngleY = -45
-	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 45
-	        fireData[i].fireLogic.recoil.minRecoilAngleZ = -45
+			fireData[i].fireLogic.recoil.maxRecoilAngleX = -25
+	        fireData[i].fireLogic.recoil.minRecoilAngleX = -25
+	        fireData[i].fireLogic.recoil.maxRecoilAngleY = 25
+	        fireData[i].fireLogic.recoil.minRecoilAngleY = 25
+	        fireData[i].fireLogic.recoil.maxRecoilAngleZ = 0
+	        fireData[i].fireLogic.recoil.minRecoilAngleZ = 0
 			fireData[i].fireLogic.rateOfFire = 600
 
 			fireData[i].ammo.magazineCapacity = 87
@@ -350,10 +324,10 @@ function MMWeapons:Write(mmResources)
 
 		fireData.fireLogic.rateOfFire = 400
 		fireData.fireLogic.rateOfFireForBurst = 900
-		fireData.fireLogic.recoil.maxRecoilAngleX = 90
-	    fireData.fireLogic.recoil.minRecoilAngleX = 60
-	    fireData.fireLogic.recoil.maxRecoilAngleY = 35
-	    fireData.fireLogic.recoil.minRecoilAngleY = -35
+		fireData.fireLogic.recoil.maxRecoilAngleX = -45
+	    fireData.fireLogic.recoil.minRecoilAngleX = -45
+	    fireData.fireLogic.recoil.maxRecoilAngleY = 90
+	    fireData.fireLogic.recoil.minRecoilAngleY = -90
 	    fireData.fireLogic.recoil.maxRecoilAngleZ = 0
 	    fireData.fireLogic.recoil.minRecoilAngleZ = 0
 
