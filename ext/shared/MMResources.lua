@@ -173,6 +173,14 @@ function MMResources:__init()
 	for resourceName, resourceData in pairs(self.MMResources) do
 		self.MMResources[resourceName].Loaded = false
 	end
+
+	Events:Subscribe('ModUtils:SendClass', function(classInfo)
+		print('Received ModUtils Class: '..classInfo.className)
+		_G[classInfo.className] = classInfo.classData
+	end)
+
+	print('Shared Asking for ModUtils Classes')
+	Events:Dispatch('ModUtils:GetClasses')
 end
 
 

@@ -5,20 +5,17 @@ function MMWeapons:Write(mmResources)
 	if (mmResources:IsLoaded('mp443')) then
 		mmResources:SetLoaded('mp443', false)
 
-		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('mp443'))
-		local weaponData = SoldierWeaponData(weaponBP.object)
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/MP443/MP443_GM')
+		local fireData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire')
+		local bulletData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire.shot.projectileData')
 
-		self:OverrideGMMagSize(weaponData, 420)
+		self:OverrideGMMagSize(SoldierWeaponData(weaponBP.object), 420)
 
-		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
-		fireData:MakeWritable()
 		fireData.shot.initialSpeed.z = 450
 		fireData.fireLogic.rateOfFire = 900
 		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 		
-		local bulletData = BulletEntityData(fireData.shot.projectileData)
-		bulletData:MakeWritable()
 		bulletData.gravity = -9.8
 		bulletData.startDamage = 600
 		bulletData.endDamage = 1000

@@ -1,10 +1,12 @@
 
 -- enable debug messages in console
 function dprint(message)
-	if (false) then -- true = on, false = off
+	if (true) then -- true = on, false = off
 		print(message)
 	end
 end
+
+ebxEditUtils = require('__shared/EbxEditUtils')
 
 -- load resource list
 mmResources = require('__shared/MMResources')
