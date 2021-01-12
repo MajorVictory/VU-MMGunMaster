@@ -78,15 +78,36 @@ function MMWeapons:Write(instance)
 		dprint('Changed SMAW...')
 	end
 
-	if ((mmResources:IsLoaded('gm_magnum44') or mmResources:IsLoaded('magnum44')) and mmResources:IsLoaded('smawmissile')) then
+	if (mmResources:IsLoaded('gm_magnum44') and mmResources:IsLoaded('smawmissile')) then
+
 		mmResources:SetLoaded('gm_magnum44', false)
-		mmResources:SetLoaded('magnum44', false)
-		mmResources:SetLoaded('smawmissile', false)
 
 		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44_GM')
-		if (weaponBP == nil) then
-			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44')
-		end
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:OverrideGMMagSize(weaponData, 1)
+
+		local missileData = MissileEntityData(mmResources:GetInstance('smawmissile'))
+		missileData:MakeWritable()
+		missileData.maxSpeed = 750
+		missileData.gravity = -9.8
+		missileData.damage = 5000
+		dprint('Changed SMAW Missile...')
+
+		-- swap magnum for smaw rocket
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
+		fireData:MakeWritable()
+		fireData.ammo.magazineCapacity = 1
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(missileData)
+		dprint('Changed Magnum .44 (GM)...')
+	end
+
+	if (mmResources:IsLoaded('magnum44') and mmResources:IsLoaded('smawmissile')) then
+
+		mmResources:SetLoaded('magnum44', false)
+
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44')
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 1)
@@ -133,15 +154,37 @@ function MMWeapons:Write(instance)
 		dprint('Changed PP-19 Bizon...')
 	end
 
-	if ((mmResources:IsLoaded('p90') or mmResources:IsLoaded('gm_p90')) and mmResources:IsLoaded('12gfrag')) then
+	if (mmResources:IsLoaded('gm_p90') and mmResources:IsLoaded('12gfrag')) then
 		mmResources:SetLoaded('gm_p90', false)
-		mmResources:SetLoaded('p90', false)
-		mmResources:SetLoaded('12gfrag', false)
 
 		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90_GM')
-		if (weaponBP == nil) then
-			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90')
-		end
+		local weaponData = SoldierWeaponData(weaponBP.object)
+
+		self:OverrideGMMagSize(weaponData, 404)
+
+		local bulletData = BulletEntityData(mmResources:GetInstance('12gfrag'))
+		bulletData:MakeWritable()
+		bulletData.gravity = -4.5
+		bulletData.startDamage = 404
+		bulletData.endDamage = 4004
+		bulletData.damageFalloffStartDistance = 0
+		bulletData.damageFalloffEndDistance = 400
+		bulletData.timeToLive = 5
+		bulletData.impactImpulse = 40000
+		dprint('Changed 12G Frag Projectile...')
+
+		local fireData = FiringFunctionData(weaponData.weaponFiring.primaryFire)
+		fireData:MakeWritable()
+		fireData.shot.projectileData:MakeWritable()
+		fireData.shot.projectileData = ProjectileEntityData(bulletData)
+		fireData.ammo.magazineCapacity = 500
+		dprint('Changed P90 (GM)...')
+	end
+
+	if (mmResources:IsLoaded('p90') and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('p90', false)
+
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90')
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 404)
