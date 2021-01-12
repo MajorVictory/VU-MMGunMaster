@@ -19,9 +19,9 @@ for resourceName, resourceData in pairs(mmResources:Get()) do
 	if (resourceData.Partition and resourceData.Instance) then
 		ResourceManager:RegisterInstanceLoadHandler(Guid(resourceData.Partition), Guid(resourceData.Instance), function(instance)
 		  mmResources:SetLoaded(resourceName, true)
-		  dprint("Resource Loaded: "..tostring(resourceName))
-		  mmPlayers:Write(mmResources)
-		  mmWeapons:Write(mmResources)
+		  --dprint("Resource Loaded ["..tostring(resourceName).."]: "..tostring(instance.instanceGuid))
+		  mmPlayers:Write(instance)
+		  mmWeapons:Write(instance)
 		end)
 	end
 end
@@ -35,13 +35,13 @@ Events:Subscribe('Partition:Loaded', function(partition)
 			expData:MakeWritable()
 			expData.triggerImpairedHearing = false
 			expData.isCausingSuppression = false
-			dprint('Removed Explosion Supression ['..instance.instanceGuid:ToString('D')..']...')
+			--dprint('Removed Explosion Supression ['..instance.instanceGuid:ToString('D')..']...')
 		end
 
 		-- adjust Gun Master level kills
 		if (instance:Is('GunMasterKillCounterEntityData')) then
 			mmWeapons:SetGMLevelKills(instance)
-			dprint('Changed Gun Master kill requirements...')
+			--dprint('Changed Gun Master kill requirements...')
 		end
 	end
 end)

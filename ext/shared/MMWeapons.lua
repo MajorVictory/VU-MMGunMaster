@@ -1,33 +1,52 @@
 class "MMWeapons"
 
-function MMWeapons:Write(mmResources)
+function MMWeapons:Write(instance)
 
-	if (mmResources:IsLoaded('mp443')) then
+	if (mmResources:IsLoaded('gm_mp443') or mmResources:IsLoaded('mp443')) then
+		mmResources:SetLoaded('gm_mp443', false)
 		mmResources:SetLoaded('mp443', false)
 
 		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/MP443/MP443_GM')
+		if (weaponBP == nil) then
+			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/MP443/MP443')
+		end
 		local fireData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire')
 		local bulletData = ebxEditUtils:GetWritableContainer(weaponBP, 'Object.WeaponFiring.PrimaryFire.shot.projectileData')
 
 		self:OverrideGMMagSize(SoldierWeaponData(weaponBP.object), 420)
 
+		fireData.weaponDispersion.standDispersion.minAngle = 3
+		fireData.weaponDispersion.standDispersion.maxAngle = 3
+		fireData.weaponDispersion.standDispersion.increasePerShot = 5
+		fireData.weaponDispersion.crouchDispersion.minAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.maxAngle = 2.5
+		fireData.weaponDispersion.crouchDispersion.increasePerShot = 5
+		fireData.weaponDispersion.proneDispersion.minAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.maxAngle = 1.5
+		fireData.weaponDispersion.proneDispersion.increasePerShot = 5
+
 		fireData.shot.initialSpeed.z = 450
+		fireData.shot.numberOfBulletsPerShell = 5
 		fireData.fireLogic.rateOfFire = 900
 		fireData.ammo.magazineCapacity = 420
 		fireData.ammo.numberOfMagazines = -1
 		
 		bulletData.gravity = -9.8
-		bulletData.startDamage = 600
-		bulletData.endDamage = 1000
+		bulletData.startDamage = 250
+		bulletData.endDamage = 600
 		bulletData.damageFalloffStartDistance = 0
-		bulletData.damageFalloffEndDistance = 15
-		dprint('Changed [GM] Mp443...')
+		bulletData.damageFalloffEndDistance = 20
+		dprint('Changed Mp443...')
 	end
 
-	if (mmResources:IsLoaded('m93r_gm')) then
-		mmResources:SetLoaded('m93r_gm', false)
+	if (mmResources:IsLoaded('gm_m93r') or mmResources:IsLoaded('m93r')) then
+		mmResources:SetLoaded('gm_m93r', false)
+		mmResources:SetLoaded('m93r', false)
 
-		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('m93r_gm'))
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/M93R/M93R_GM')
+		if (weaponBP == nil) then
+			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/M93R/M93R')
+		end
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 5)
@@ -59,11 +78,15 @@ function MMWeapons:Write(mmResources)
 		dprint('Changed SMAW...')
 	end
 
-	if (mmResources:IsLoaded('magnum44') and mmResources:IsLoaded('smawmissile')) then
+	if ((mmResources:IsLoaded('gm_magnum44') or mmResources:IsLoaded('magnum44')) and mmResources:IsLoaded('smawmissile')) then
+		mmResources:SetLoaded('gm_magnum44', false)
 		mmResources:SetLoaded('magnum44', false)
 		mmResources:SetLoaded('smawmissile', false)
 
-		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('magnum44'))
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44_GM')
+		if (weaponBP == nil) then
+			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/Taurus44/Taurus44')
+		end
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 1)
@@ -110,11 +133,15 @@ function MMWeapons:Write(mmResources)
 		dprint('Changed PP-19 Bizon...')
 	end
 
-	if (mmResources:IsLoaded('p90') and mmResources:IsLoaded('12gfrag')) then
+	if ((mmResources:IsLoaded('p90') or mmResources:IsLoaded('gm_p90')) and mmResources:IsLoaded('12gfrag')) then
+		mmResources:SetLoaded('gm_p90', false)
 		mmResources:SetLoaded('p90', false)
 		mmResources:SetLoaded('12gfrag', false)
 
-		local weaponBP = SoldierWeaponBlueprint(mmResources:GetInstance('p90'))
+		local weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90_GM')
+		if (weaponBP == nil) then
+			weaponBP = ebxEditUtils:GetWritableInstance('Weapons/P90/P90')
+		end
 		local weaponData = SoldierWeaponData(weaponBP.object)
 
 		self:OverrideGMMagSize(weaponData, 404)
@@ -610,12 +637,12 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 	local gmPreset_RUArmsRace = gmCounterData.weaponsPreset[8].gunMasterLevelInfos
 	local gmPreset_EUArmsRace = gmCounterData.weaponsPreset[9].gunMasterLevelInfos
 
-	gmPreset_Normal[1].killsNeeded = 1 	-- GM_MP443
+	gmPreset_Normal[1].killsNeeded = 2 	-- GM_MP443
 	gmPreset_Normal[2].killsNeeded = 2 	-- GM_M93
-	gmPreset_Normal[3].killsNeeded = 3 	-- GM_T44
+	gmPreset_Normal[3].killsNeeded = 2 	-- GM_T44
 	gmPreset_Normal[4].killsNeeded = 2 	-- GM_PP
 	gmPreset_Normal[5].killsNeeded = 2 	-- GM_P90
-	gmPreset_Normal[6].killsNeeded = 4 	-- GM_SPAS
+	gmPreset_Normal[6].killsNeeded = 3 	-- GM_SPAS
 	gmPreset_Normal[7].killsNeeded = 1 	-- GM_Jackhammer
 	gmPreset_Normal[8].killsNeeded = 2 	-- GM_ACR
 	gmPreset_Normal[9].killsNeeded = 3 	-- GM_MTAR
@@ -637,12 +664,12 @@ function MMWeapons:SetGMLevelKills(gmKillCounterInstance)
 	gmPreset_NormalReversed[7].killsNeeded = 3 	-- GM_MTAR
 	gmPreset_NormalReversed[8].killsNeeded = 2 	-- GM_ACR
 	gmPreset_NormalReversed[9].killsNeeded = 1 	-- GM_Jackhammer
-	gmPreset_NormalReversed[10].killsNeeded = 4	-- GM_SPAS
+	gmPreset_NormalReversed[10].killsNeeded = 3	-- GM_SPAS
 	gmPreset_NormalReversed[11].killsNeeded = 2	-- GM_P90
 	gmPreset_NormalReversed[12].killsNeeded = 2	-- GM_PP
-	gmPreset_NormalReversed[13].killsNeeded = 3	-- GM_T44
+	gmPreset_NormalReversed[13].killsNeeded = 2	-- GM_T44
 	gmPreset_NormalReversed[14].killsNeeded = 2	-- GM_M93
-	gmPreset_NormalReversed[15].killsNeeded = 1	-- GM_MP443
+	gmPreset_NormalReversed[15].killsNeeded = 2	-- GM_MP443
 	gmPreset_NormalReversed[16].killsNeeded = 2	-- GM_M320
 	gmPreset_NormalReversed[17].killsNeeded = 2	-- GM_Knife
 

@@ -9,16 +9,25 @@ function MMResources:__init()
 
 
 	self.MMResources["mp443"] = {}
-	self.MMResources["mp443"]["Partition"] = 'ED5DEF93-B621-456F-8246-33BFC9E564C2'
-	self.MMResources["mp443"]["Instance"] = 'B41C9F21-D723-4607-B2BA-4B2C30677C51'
+	self.MMResources["mp443"]["Partition"] = '0D4646B4-F3DF-11DF-B48C-9F474D51EF2A'
+	self.MMResources["mp443"]["Instance"] = '6E649856-B5B6-ACE4-9DD6-AB5FD6054ACC'
+	self.MMResources["gm_mp443"] = {}
+	self.MMResources["gm_mp443"]["Partition"] = 'ED5DEF93-B621-456F-8246-33BFC9E564C2'
+	self.MMResources["gm_mp443"]["Instance"] = 'B41C9F21-D723-4607-B2BA-4B2C30677C51'
 
-	self.MMResources["m93r_gm"] = {}
-	self.MMResources["m93r_gm"]["Partition"] = '30870A1C-F7BE-494A-B65B-9B0EB380A93C'
-	self.MMResources["m93r_gm"]["Instance"] = '08D76B3D-03BB-4B71-8BE3-406B9FDE6B4D'
+	self.MMResources["m93r"] = {}
+	self.MMResources["m93r"]["Partition"] = '06374F08-F23B-11DF-A182-B47F2E879897'
+	self.MMResources["m93r"]["Instance"] = '95EB502E-D5F7-5793-A108-5EC4E77802DA'
+	self.MMResources["gm_m93r"] = {}
+	self.MMResources["gm_m93r"]["Partition"] = '30870A1C-F7BE-494A-B65B-9B0EB380A93C'
+	self.MMResources["gm_m93r"]["Instance"] = '08D76B3D-03BB-4B71-8BE3-406B9FDE6B4D'
 
 	self.MMResources["magnum44"] = {}
-	self.MMResources["magnum44"]["Partition"] = '584C0B65-BC87-4853-AD28-7B7CEB21B336'
-	self.MMResources["magnum44"]["Instance"] = 'E93DB755-1B3D-4AE2-8358-1107A21DEC5A'
+	self.MMResources["magnum44"]["Partition"] = '21E91507-2AF6-11E0-9848-9E9BC51DCED8'
+	self.MMResources["magnum44"]["Instance"] = 'EAB58F8A-382F-529F-B8AA-D73E90BA15D0'
+	self.MMResources["gm_magnum44"] = {}
+	self.MMResources["gm_magnum44"]["Partition"] = '584C0B65-BC87-4853-AD28-7B7CEB21B336'
+	self.MMResources["gm_magnum44"]["Instance"] = 'E93DB755-1B3D-4AE2-8358-1107A21DEC5A'
 
 	self.MMResources["smaw"] = {}
 	self.MMResources["smaw"]["Partition"] = 'BCE98CA0-17EC-11E0-8CD8-85483A75A7C5'
@@ -37,8 +46,11 @@ function MMResources:__init()
 	self.MMResources["pp19_bullet"]["Instance"] = '1DCD8041-89A8-439E-9914-45B5BB60578F'
 
 	self.MMResources["p90"] = {}
-	self.MMResources["p90"]["Partition"] = 'C7D08BC3-04B6-440C-BF99-0E6D6A41D890'
-	self.MMResources["p90"]["Instance"] = '4C7904EB-0121-4BE4-B50B-D15E4505BC7E'
+	self.MMResources["p90"]["Partition"] = 'C75DBA86-F326-11DF-ABE6-A89858BEBE43'
+	self.MMResources["p90"]["Instance"] = '25F31D4F-71A9-E349-983D-A86989548A74'
+	self.MMResources["gm_p90"] = {}
+	self.MMResources["gm_p90"]["Partition"] = 'C7D08BC3-04B6-440C-BF99-0E6D6A41D890'
+	self.MMResources["gm_p90"]["Instance"] = '4C7904EB-0121-4BE4-B50B-D15E4505BC7E'
 
 	self.MMResources["12gfrag"] = {}
 	self.MMResources["12gfrag"]["Partition"] = '2A6FCD72-5842-41B4-AC48-56BAACA506A3'

@@ -166,7 +166,7 @@ function EbxEditUtils:ValidateValue(argValue, argParams)
 				string.lower(argValue) == 'true' or string.lower(argValue) == 'false' or
 				string.lower(argValue) == 'y' or string.lower(argValue) == 'n') then
 
-				-- the value still needs to be a string, but let's normalise it
+				-- the value still needs to be a boolean, but let's normalise it
 				local booltostring = tostring((argValue == '1' or string.lower(argValue) == 'true' or string.lower(argValue) == 'y'))
 				return (booltostring == 'true'), true
 			end
@@ -269,33 +269,5 @@ end
 function EbxEditUtils:StringIsDigit(str)
 	return tonumber(str) ~= nil
 end
-
-function EbxEditUtils:getModuleState()
-	if (SharedUtils:IsClientModule() and SharedUtils:IsServerModule()) then
-		return 'Shared'
-	elseif (SharedUtils:IsClientModule() and not SharedUtils:IsServerModule()) then
-		return 'Client'
-	elseif (not SharedUtils:IsClientModule() and SharedUtils:IsServerModule()) then
-		return 'Server'
-	end
-	return 'Unkown'
-end
-
-function EbxEditUtils:dump(o)
-	if (o == nil) then
-		print("nil")
-	end
-	if (type(o) == 'table') then
-		local s = '{ '
-		for k,v in pairs(o) do
-			if type(k) ~= 'number' then k = '"'..k..'"' end
-			s = s .. '['..k..'] = ' .. self:dump(v) .. ','
-		end
-		return s .. '} '
-	else
-		return tostring(o)
-	end
-end
-
 
 return EbxEditUtils()

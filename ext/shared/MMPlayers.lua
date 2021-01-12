@@ -1,6 +1,6 @@
 class "MMPlayers"
 
-function MMPlayers:Write(mmResources)
+function MMPlayers:Write(instance)
 
 	if (mmResources:IsLoaded('chat')) then
 		mmResources:SetLoaded('chat', false)
